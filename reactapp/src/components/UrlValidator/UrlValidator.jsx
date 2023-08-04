@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
  
-const UrlValidator = () => {
+const UrlValidator = () => 
+{
  
     let [disabled,setDisabled] = useState(false);
  
-    const isValidateDomain = (d) => {
-        if(d.startsWith("www.") && d.endsWith(".com")) {
+    const isValidateDomain = (d) => 
+    {
+        if(d.startsWith("www.") && d.endsWith(".com")) 
+        {
             return true;
         }
         return false;
