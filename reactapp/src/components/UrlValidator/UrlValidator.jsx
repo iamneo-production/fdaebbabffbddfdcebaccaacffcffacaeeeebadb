@@ -14,45 +14,56 @@ const UrlValidator = () =>
         return false;
     }
  
-    const convertToPath = (input) => {
+    const convertToPath = (input) => 
+    {
         return '/' + input.split(" ").join("/");
     }
  
-    const convertJson = (jsonString) => {
+    const convertJson = (jsonString) => 
+    {
         const jsonObject = JSON.parse(jsonString);
         const params = "?" + Object.entries(jsonObject).map((e) => e.join("=")).join("&");
         return params;
     }
  
-    const isValidJson = (jsonString) => {
-        try {
+    const isValidJson = (jsonString) => 
+    {
+        try 
+        {
             JSON.parse(jsonString);
             return true;
-        } catch (e) {
+        } catch (e) 
+        {
             return false;
         }
     }
  
-    const validateForm = (domain,path,method,body) => {
-        if (!isValidateDomain(domain)) {
+    const validateForm = (domain,path,method,body) => 
+    {
+        if (!isValidateDomain(domain)) 
+        {
             console.log("went");
             return "Invalid URL! Please recheck your URL";
         }
-        if (method === "GET") {
+        if (method === "GET") 
+        {
             if (Object.keys(body).length === 0 ) return "";
             if (!isValidJson(body)) return "Error in the Body of the Query Params";
         }
-        if (method === "POST" || method === "PUT") {
+        if (method === "POST" || method === "PUT") 
+        {
             if(Object.keys(body).length === 0) 
                 return "Error in the Body";
-            if(!isValidJson(body)) {
+            if(!isValidJson(body)) 
+            {
                 return "Error in the Body";
             }
         }
         return "";
     }
  
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => 
+    {
         e.preventDefault();
         let domain = e.target[0].value;
         let path = e.target[1].value;
@@ -60,7 +71,8 @@ const UrlValidator = () =>
         let body = e.target[3].value;
         let tmp_msg = validateForm(domain,path,method,body);
         console.log(tmp_msg)
-        if(tmp_msg==="") {
+        if(tmp_msg==="") 
+        {
             console.log("success");
             let link = domain + convertToPath(path)
             if (Object.keys(body).length != 0 && method === "GET") link = link + convertJson(body);
@@ -68,7 +80,8 @@ const UrlValidator = () =>
             document.getElementById("message").textContent = link.trim();
             console.log(link.trim());
         }
-        else {
+        else 
+        {
             document.getElementById("message").textContent = tmp_msg;
         }
  
@@ -90,7 +103,8 @@ const UrlValidator = () =>
                 <br />
                 <label>
                     Method:
-                    <select data-testid="method" defaultValue="GET" id="method" onChange={(e)=>{
+                    <select data-testid="method" defaultValue="GET" id="method" onChange={(e)=>
+                    {
                         console.log(e);
                         (document.getElementById("method").value==="DELETE") ? setDisabled(true) : setDisabled(false);
                     }}>
